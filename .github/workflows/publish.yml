@@ -14,8 +14,7 @@ jobs:
     name: publish container image to Docker Hub
     runs-on: ubuntu-22.04
     env:
-      current_version: "${$(git tag | sort --version-sort | tail -n1):--1}"
-      next_version: $(echo "$current_version + 1" | bc)
+      tag: $next_version
 
     steps:
       - uses: actions/checkout@v4
@@ -24,14 +23,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - run: |
+          current_version="${$(git tag | sort --version-sort | tail -n1):--1}"
+          next_version="$(echo "$current_version + 1" | bc)"
+          echo "tag=$next_version" >> "$GITHUB_ENV"
       
       - uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ env.next_version }},latest
+          tags: $tag,latest
     
       - uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ env.next_version }}
+          tag_name: $tag

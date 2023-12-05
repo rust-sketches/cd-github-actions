@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# exit when any command fails
+set -e
+
+# quietly build
+docker build -q . -t awwsmm/rust-ci:pre-push
+
+# clean up
+docker image rm awwsmm/rust-ci:pre-push --force

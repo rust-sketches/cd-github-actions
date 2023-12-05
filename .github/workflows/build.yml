@@ -1,0 +1,11 @@
+name: pull-request
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: .githooks/pre-push
+        run: .githooks/pre-push

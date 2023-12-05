@@ -29,9 +29,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: $next_version,latest
+          tags: ${{ env.next_version }},latest
     
       - uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: $next_version
+          tag_name: ${{ env.next_version }}

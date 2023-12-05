@@ -2,16 +2,16 @@
 
 Demonstrates how to use GitHub Actions for continuous delivery (CD) by publishing a container image to Dockerhub.
 
-## setup
+## git hooks setup
 
-Change the default git hooks directory to the version-controlled one
+If you're going to `git push` to this directory, you'll need to change the default git hooks directory to the version-controlled one...
 
 ```shell
 git config --local core.hooksPath .githooks
 ```
 
-Make all hooks executable with
+...and make all hooks executable with
 
 ```shell
-git update-index --chmod=+x .githooks/*
+chmod +x .githooks/*
 ```

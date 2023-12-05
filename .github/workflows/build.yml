@@ -1,6 +1,11 @@
 name: pull-request
 
-on: pull_request
+# only run this workflow when the Dockerfile has changed
+
+on:
+  pull_request:
+    paths:
+      - Dockerfile
 
 jobs:
   build:

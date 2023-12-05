@@ -25,7 +25,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - run: |
-          current_version="${$(git tag | sort --version-sort | tail -n1):--1}"
+          current_version="$(git tag | sort --version-sort | tail -n1)"
+          current_version="${current_version:="-1"}"
           next_version="$(echo "$current_version + 1" | bc)"
           echo "tag=$next_version" >> "$GITHUB_ENV"
       

@@ -1,9 +1,13 @@
 name: publish
 
+# only run this workflow when the Dockerfile has changed
+
 on:
     push:
       branches:
-        - master
+        - main
+      paths:
+        - Dockerfile
 
 jobs:
   publish:
